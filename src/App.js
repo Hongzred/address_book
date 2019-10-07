@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import {Container} from "react-bootstrap";
+import {Container, FormControl} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import AddressBook from "./AddressBook/AddressBook";
@@ -57,7 +57,8 @@ class App extends React.Component {
     FirstName: "",
     LastName: "",
     Birthday: "",
-    Telephone: ""
+    Telephone: "",
+    newAddress: null
   };
 
   addAddressHandler = (event) => {
@@ -83,6 +84,15 @@ class App extends React.Component {
     this.setState({address:address});
   }
 
+  searchHandler = (event) => {
+    let keyword = event.target.value;
+    let address = this.state.address;
+    let newAddress = address.filter((item => {
+      return item.FirstName.toLowerCase().includes(keyword) || item.LastName.toLowerCase().includes(keyword) || item.Birthday.toLowerCase().includes(keyword) || item.Telephone.toLowerCase().includes(keyword)
+    }));
+    this.setState({newAddress: keyword? newAddress : null});
+  }
+
   render = () => {
     return (
       <div className="App">
@@ -90,10 +100,54 @@ class App extends React.Component {
           <header className="text-left">
             <h1>React Based Address Book</h1>
           </header>
+          <div className="text-right">
+            <input type="text"
+              placeholder="Search Keyword"
+              id="searchwWord"
+              onChange={this.searchHandler}>
+
+            </input>
+          </div>
           <AddressBook
-            address={this.state.address}
+            address={this.state.newAddress || this.state.address}
             delete={this.deleteAddressHandler}>
           </AddressBook>
+          <br />
+          <h2 className="text-left">Add Address</h2>
+          <Form className="text-left" onSubmit={this.addAddressHandler}>
+            <Form.Group controlId="formAddress">
+              <Form.Label>FirstName</Form.Label>
+              <FormControl
+                type="text"
+                placeholder="Enter FirstName"
+                value={this.state.FirstName}
+                onChange={(e) => this.setState({FirstName:e.target.value})}>
+              </FormControl>
+              <Form.Label>LastName</Form.Label>
+              <FormControl
+                type="text"
+                placeholder="Enter LastName"
+                value={this.state.LastName}
+                onChange={(e) => this.setState({LastName:e.target.value})}>
+              </FormControl>
+              <Form.Label>Birthday</Form.Label>
+              <FormControl
+                type="text"
+                placeholder="Enter Birthday"
+                value={this.state.Birthday}
+                onChange={(e) => this.setState({Birthday:e.target.value})}>
+              </FormControl>
+              <Form.Label>Telephone</Form.Label>
+              <FormControl
+                type="text"
+                placeholder="Enter Telephone"
+                value={this.state.Telephone}
+                onChange={(e) => this.setState({Telephone:e.target.value})}>
+              </FormControl>
+              <br/>
+              <Button variant="primary" type="submit">Add New Address</Button>
+            </Form.Group>
+          </Form>
         </Container>
       </div>
     )

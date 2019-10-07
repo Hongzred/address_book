@@ -10,7 +10,7 @@ function AddressBook (props) {
         <ListGroup.Item key={item.key}>
             <Card className="bg-light border rounded">
                 <span key={item.key}
-                    className="text-right"
+                    className="text-right pointer"
                     onClick={props.delete.bind(null,item.key)}>
                     {'\u274e'}
                 </span>
