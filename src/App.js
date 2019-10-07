@@ -1,12 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from "react";
+import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Container from "react-bootstrap/Container";
+import {Container} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import AddressBook from "./AddressBook/AddressBook.js";
-import {generate} from 'randomstring';
+import AddressBook from "./AddressBook/AddressBook";
+import generate from './generate.js';
 
 class App extends React.Component {
   state = {

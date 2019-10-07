@@ -9,17 +9,17 @@ function AddressBook (props) {
     let listItems = address.map((item) => 
         <ListGroup.Item key={item.key}>
             <Card className="bg-light border rounded">
-                <span key={item.key}>
+                <span key={item.key}
                     className="text-right"
-                    onClick={props.delete.bind(null,item.key)}
+                    onClick={props.delete.bind(null,item.key)}>
                     {'\u274e'}
                 </span>
-                <Card.body className="text-left">
+                <Card.Body className="text-left">
                     <p>FirstName: {item.FirstName}</p>
                     <p>LastName: {item.LastName}</p>
                     <p>BirthDay: {item.Birthday}</p>
                     <p>Telephone: {item.Telephone}</p>
-                </Card.body>
+                </Card.Body>
             </Card>
         </ListGroup.Item>
     )
